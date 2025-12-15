@@ -1,0 +1,41 @@
+<turbo-frame id="business_<%= business.id %>">
+  <div class="business-row">
+    <div class="business-col name">
+      <h3><%= business.name %></h3>
+    </div>
+
+    <div class="business-col">
+      <span class="label">Location</span>
+      <span><%= business.location %></span>
+    </div>
+
+    <div class="business-col">
+      <span class="label">Services</span>
+      <span><%= business.services %></span>
+    </div>
+
+    <div class="business-col link">
+      <a href="<%= business.website %>" target="_blank">Website ↗</a>
+    </div>
+
+    <div class="business-col actions">
+      <% if user_signed_in? %>
+        <% if business.saved? %>
+          <%= button_to "★ Saved",
+                business_saved_path(business),
+                method: :delete,
+                form: { data: { turbo_frame: "business_#{business.id}" } },
+                class: "saved-btn active" %>
+        <% else %>
+          <%= button_to "☆ Save",
+                business_saved_path(business),
+                method: :post,
+                form: { data: { turbo_frame: "business_#{business.id}" } },
+                class: "saved-btn" %>
+        <% end %>
+
+        
+      <% end %>
+    </div>
+  </div>
+</turbo-frame>

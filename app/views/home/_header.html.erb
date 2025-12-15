@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+    <%= link_to 'FitMap', root_path, class:"navbar-brand" %>
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <% if !user_signed_in? %>
+                    <%= link_to 'Log In', new_user_session_path, class:"nav-link" %>
+                    <%= link_to 'Sign Up', new_user_registration_path, class:"nav-link" %>
+                <% else %>
+                    <%= link_to 'Account', account_path, class:"nav-link active", "aria-current": "page" %>
+                    <%= link_to "Log Out", destroy_user_session_path,
+                        data: { turbo_method: :delete },
+                        class: "nav-link" %>
+                <% end %>
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </div>
+        </div>
+    </div>
+</nav>

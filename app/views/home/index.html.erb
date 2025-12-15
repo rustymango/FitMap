@@ -1,0 +1,42 @@
+<h1>Find Gyms, Studios, Fitness Centers, and more!</h1>
+
+<div class="search-container">
+  <form class="search-bar" action="/" method="get">
+
+    <div class="search-field">
+      <input
+        type="text"
+        name="city"
+        placeholder="City"/>
+      <span class="icon">▾</span>
+    </div>
+
+    <div class="search-field">
+      <input
+        type="text"
+        name="service"
+        placeholder="Services"/>
+      <span class="icon">×</span>
+    </div>
+
+    <div class="search-field">
+      <input
+        type="text"
+        name="country"
+        placeholder="🇨🇦 Canada"
+      />
+      <span class="icon">▾</span>
+    </div>
+
+    <button type="submit" class="search-button">
+      🔍
+    </button>
+
+  </form>
+</div>
+
+<div class="results-list">
+  <% @businesses.each do |business| %>
+    <%= render "home/business", business: business %>
+  <% end %>
+</div>
