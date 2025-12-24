@@ -1,1 +1,14 @@
-<h1>Your Account</h1>
+<h2>Recently Searched</h2>
+
+<% if @recent_searches %>
+<% @recent_searches.each do |search| %>
+    <section class="recent-search">
+        <h6> Query Date - <%= search.last_query_date %> | Location: <%= search.city %> | Services: <%= search.service %> </h3>
+    
+        <% search.businesses.each do |business| %>
+            <%= render "home/business", business: business, show_saved: false %>
+            <br>
+        <% end %>
+    </section>
+<% end %>
+<% end %>

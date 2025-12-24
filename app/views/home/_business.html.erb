@@ -18,8 +18,8 @@
       <a href="<%= business.website %>" target="_blank">Website ↗</a>
     </div>
 
+    <% if show_saved && user_signed_in? %>
     <div class="business-col actions">
-      <% if user_signed_in? %>
         <% if business.saved? %>
           <%= button_to "★ Saved",
                 business_saved_path(business),
@@ -32,10 +32,9 @@
                 method: :post,
                 form: { data: { turbo_frame: "business_#{business.id}" } },
                 class: "saved-btn" %>
-        <% end %>
-
-        
-      <% end %>
+        <% end %>        
     </div>
+    <% end %>
+    
   </div>
 </turbo-frame>

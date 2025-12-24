@@ -4,6 +4,9 @@ class Business < ApplicationRecord
 
     has_many :reviews, dependent: :destroy
 
+    has_many :recently_searched_businesses, dependent: :destroy
+    has_many :recently_searches, through: :recently_searched_businesses
+
     def self.search(params, user = nil)
         # Rails.logger.warn("testing ----")
         return [] if params.empty?
@@ -32,6 +35,10 @@ class Business < ApplicationRecord
     end
 
     def saved?
+        # there should be a way to query your related records in other tables, from the Business record
+        #
+        Rails.logger.warn("--------")
+        Rails.logger.warn(self)
       ActiveModel::Type::Boolean.new.cast(self[:saved])
     end
 
