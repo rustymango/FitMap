@@ -1,14 +1,40 @@
-<h2>Recently Searched</h2>
+<div class="account-layout">
+    <div class="account-main">
+        <h2>Recently Searched</h2>
 
-<% if @recent_searches %>
-<% @recent_searches.each do |search| %>
-    <section class="recent-search">
-        <h6> Query Date - <%= search.last_query_date %> | Location: <%= search.city %> | Services: <%= search.service %> </h3>
-    
-        <% search.businesses.each do |business| %>
-            <%= render "home/business", business: business, show_saved: false %>
-            <br>
+        <% if @recent_searches.any? %>
+            <% @recent_searches.each do |search| %>
+                <section class="recent-search">
+                    <h6> Query Date - <%= search.last_query_date %> | Location: <%= search.city %> | Services: <%= search.service %> </h3>
+                
+                    <% search.businesses.each do |business| %>
+                        <%= turbo_frame_tag dom_id(business, :recent) %>
+                            <%= render "home/business", 
+                                business: business, 
+                                show_saved: false,
+                                context: :recent %>
+                        <br>
+                    <% end %>
+                </section>
+            <% end %>
+        <% else %>
+            <p>No recent searches.</p>
         <% end %>
-    </section>
-<% end %>
-<% end %>
+    </div>
+
+    <div class="account-sidebar">
+        <h2> Saved Businesses </h2>
+
+        <% if @saved_businesses.any? %>
+            <% @saved_businesses.each do |save| %>
+                <%= render "home/business",
+                    business: save,
+                    show_saved: true,
+                    context: :saved %>
+                <br>
+            <% end %>
+        <% else %>
+            <p> No businesses saved </p>
+        <% end %>
+    </div>
+</div>

@@ -34,12 +34,11 @@ class Business < ApplicationRecord
         businesses.distinct
     end
 
-    def saved?
-        # there should be a way to query your related records in other tables, from the Business record
-        #
-        Rails.logger.warn("--------")
-        Rails.logger.warn(self)
-      ActiveModel::Type::Boolean.new.cast(self[:saved])
+    def saved_by?(user)
+      return false unless user
+      saved_by_users.loaded? ?
+        saved_by_users.any? { |u| u.id == user.id } :
+        saveds.exists?(user_id: user.id)
     end
 
     def user_review

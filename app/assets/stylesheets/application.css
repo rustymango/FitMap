@@ -132,3 +132,25 @@ padding: 0.75rem;
 .business-col a:hover {
   text-decoration: underline;
 }
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.account-main {
+  width: 100%;
+}
+
+.account-sidebar {
+  width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+  }
+}

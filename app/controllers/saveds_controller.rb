@@ -19,6 +19,10 @@ class SavedsController < ApplicationController
   end
 
   def render_business
+    frame_id = request.headers["Turbo-Frame"]
+    Rails.logger.warn("this is the frame id: #{frame_id}")
+    context = frame_id&.split("_business_")&.first || "default"
+
     business = Business.left_joins(:saveds)
                         .where("businesses.id = ?", @business.id)
                         .where("saveds.user_id = ? OR saveds.user_id IS NULL", current_user.id)
@@ -27,9 +31,9 @@ class SavedsController < ApplicationController
                        ).first
 
     render turbo_stream: turbo_stream.replace(
-      "business_#{@business.id}",
+      "#{context}_business_#{@business.id}",
       partial: "home/business",
-      locals: { business: business }
+      locals: { business: business, show_saved: true, context: context }
     )
   end
 end

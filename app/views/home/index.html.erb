@@ -36,7 +36,10 @@
 </div>
 
 <div class="results-list">
-  <% @businesses.each do |business| %>
-    <%= render "home/business", business: business, show_saved: true %>
+  <% @businesses.each do |business| %> 
+      <%= render "home/business", 
+        business: business, 
+        show_saved: true,
+        context: :search %>
   <% end %>
 </div>

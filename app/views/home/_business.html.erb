@@ -1,4 +1,4 @@
-<turbo-frame id="business_<%= business.id %>">
+<%= turbo_frame_tag dom_id(business, context) do %>
   <div class="business-row">
     <div class="business-col name">
       <h3><%= business.name %></h3>
@@ -20,21 +20,20 @@
 
     <% if show_saved && user_signed_in? %>
     <div class="business-col actions">
-        <% if business.saved? %>
+        <% if business.saved_by?(current_user) %>
           <%= button_to "★ Saved",
                 business_saved_path(business),
                 method: :delete,
-                form: { data: { turbo_frame: "business_#{business.id}" } },
+                form: { data: { turbo_frame: dom_id(business, context) } },
                 class: "saved-btn active" %>
         <% else %>
           <%= button_to "☆ Save",
                 business_saved_path(business),
                 method: :post,
-                form: { data: { turbo_frame: "business_#{business.id}" } },
+                form: { data: { turbo_frame: dom_id(business, context) } },
                 class: "saved-btn" %>
         <% end %>        
     </div>
     <% end %>
-    
   </div>
-</turbo-frame>
+<% end %>
